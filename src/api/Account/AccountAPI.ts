@@ -1,6 +1,6 @@
 import { axiosCreate, axiosRead } from "../AxiosCRUD";
 import { baseUrl, header } from "../template";
-import { AccountProps, AccountPropsCreate } from "./IAccount";
+import { AccountProps, AccountPropsCreate, LoginProps } from "./IAccount";
 const accountUrl = baseUrl+"/account"
 const googleLoginURL = import.meta.env.VITE_API_GOOLGE_LOGIN_URL
 
@@ -24,7 +24,40 @@ export const GoogleAccountAuthen = async (data: string) => {
         return null
     }
 }
+export const LoginAccount = async (data: LoginProps):Promise<AccountProps|null> => {
+    const props = {
+        data: null,
+        url: accountUrl+`?email=${data.email}&password=${data.password}`,
+        headers: header
+    }
+    const result = await axiosRead(props)
+    if (result.success) {
+        //console.log(result.data)
+        return result.data
+    }
+    else {
+        console.log(result.error)
+        return null
+    }
 
+}
+export const LoginAccountWithGoogle = async (email: string):Promise<AccountProps|null> => {
+    const props = {
+        data: null,
+        url: accountUrl+`?email=${email}`,
+        headers: header
+    }
+    const result = await axiosRead(props)
+    if (result.success) {
+        //console.log(result.data)
+        return result.data
+    }
+    else {
+        console.log(result.error)
+        return null
+    }
+
+}
 export const RegisterAccount = async (data: AccountPropsCreate):Promise<any> => {
     const props = {
         data: data,
