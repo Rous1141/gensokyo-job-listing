@@ -1,7 +1,29 @@
-import { axiosCreate } from "../AxiosCRUD";
+import { axiosCreate, axiosRead } from "../AxiosCRUD";
 import { baseUrl, header } from "../template";
 import { AccountProps, AccountPropsCreate } from "./IAccount";
 const accountUrl = baseUrl+"/account"
+const googleLoginURL = import.meta.env.VITE_API_GOOLGE_LOGIN_URL
+
+export const GoogleAccountAuthen = async (data: string) => {
+    const googleHeader = {
+        Authorization: `Bearer ${data}`,
+        "Content-Type": "application/json"
+    }
+    const props = {
+        data: null,
+        url: googleLoginURL,
+        headers: googleHeader
+    }
+    const result = await axiosRead(props)
+    if (result.success) {
+        //console.log(result)
+        return result.data
+    }
+    else {
+        console.log(result.error)
+        return null
+    }
+}
 
 export const RegisterAccount = async (data: AccountPropsCreate):Promise<any> => {
     const props = {
@@ -26,7 +48,7 @@ export const FetchAccount = async ():Promise<AccountProps[]> => {
         url: accountUrl,
         headers: header
     }
-    const result = await axiosCreate(props)
+    const result = await axiosRead(props)
     if (result.success) {
         //console.log(result.data)
         return result.data
@@ -42,7 +64,7 @@ export const FetchAccountById = async ():Promise<AccountProps|null> => {
         url: accountUrl,
         headers: header
     }
-    const result = await axiosCreate(props)
+    const result = await axiosRead(props)
     if (result.success) {
         //console.log(result.data)
         return result.data

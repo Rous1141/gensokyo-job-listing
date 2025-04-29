@@ -17,3 +17,12 @@ export interface AccountPropsCreate{
     isActive: true,
     role: "user"|string,
 }
+export interface GoogleAccountRequestProps {
+    email: string
+    email_verified: boolean
+    family_name: string
+    given_name: string
+    picture: string
+    sub: string,
+    roleId:string
+  }
