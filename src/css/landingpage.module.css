@@ -24,7 +24,7 @@
     top: 1%;
     bottom: 0;
     color: #c5c5c5 !important;
-    font-size: 24px;
+    font-size: 1.5vw;
     text-align: center;
     z-index: 2; /* Ensure the overlay description is above the overlay */
     padding: 10%;

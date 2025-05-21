@@ -23,6 +23,7 @@ const Login: React.FC = () => {
         const response = await LoginAccountWithGoogle(userAccount.email);
         if (response!=null) {
           alert('Login successful');
+          console.log('Login successful:', response);
         }else{
           alert('Login failed. Please try again.');
         }

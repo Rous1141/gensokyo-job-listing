@@ -8,6 +8,7 @@ import Jobdetails from "../pages/jobdetails";
 import Gensokyo from "../pages/gensokyo";
 import NotFound from "../pages/notfound";
 import LandingPage from "../pages/landingpage";
+import Dummy from "../pages/dummy";
 
 export const routes = createBrowserRouter([
     {
@@ -38,6 +39,10 @@ export const routes = createBrowserRouter([
     {
         index:true,
         Component: LandingPage,
+    },
+    {
+        path:"/dummy",
+        Component: Dummy,
     },
     {
         path:"/login",
