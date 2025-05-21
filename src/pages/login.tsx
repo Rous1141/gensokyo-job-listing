@@ -6,14 +6,20 @@ import { GoogleAccountRequestProps, LoginProps } from '../api/Account/IAccount';
 import { GoogleOutlined } from '@ant-design/icons';
 import loginImage from '/img/login.png';
 import styles from '../css/loginform.module.css';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
+import useAuths from '../hooks/useAuths';
 
 const { Title, Text } = Typography;
 
 const Login: React.FC = () => {
   const [isGoogleLoading, setIsGoogleLoading] = useState(false);
   const [isEmailLoading, setIsEmailLoading] = useState(false);
+  const nav = useNavigate()
+  const setAccount = useAuths((state) => state.setAccount);
 
+  const navHomepage = () => {
+    nav('/gensokyo')
+  }
   const googleLogin = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
       setIsGoogleLoading(true);
@@ -21,9 +27,12 @@ const Login: React.FC = () => {
         const { access_token } = tokenResponse;
         const userAccount: GoogleAccountRequestProps = await GoogleAccountAuthen(access_token);
         const response = await LoginAccountWithGoogle(userAccount.email);
+       
         if (response!=null) {
           alert('Login successful');
           console.log('Login successful:', response);
+          setAccount(response[0])
+          navHomepage()
         }else{
           alert('Login failed. Please try again.');
         }
@@ -46,6 +55,9 @@ const Login: React.FC = () => {
     const response = await LoginAccount(values)
     if (response!=null) {
       alert('Login successful');
+      console.log('Login successful:', response);
+      setAccount(response[0])
+      navHomepage()
     }else{
       alert('Login failed. Please try again.');
     }

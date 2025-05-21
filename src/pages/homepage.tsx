@@ -3,9 +3,11 @@ import { Button, Card, List, Space, Tag, Typography } from 'antd';
 import { IJobProps } from '../api/Job/IJob'
 import { FetchJob } from '../api/Job/JobAPI'
 import styles from '../css/homepage.module.css'
+import useAuths from '../hooks/useAuths';
 const { Title, Text } = Typography;
 export default function HomePage() {
   const [jobList, setJobList] = useState<IJobProps[]>([])
+  const current_account = useAuths((state) => state.current_account)
   const fetchJobList = async () => {
     try {
       const response = await FetchJob();
@@ -22,7 +24,7 @@ export default function HomePage() {
   return (
 <div className={styles.homepage}>
       <Title level={2} className={styles.title}>
-        Available Jobs
+        Available Jobs for {current_account?current_account.username:'Guest'}
       </Title>
       <List
         grid={{ gutter: 16, xs: 1, sm: 1, md: 2, lg: 3 }}

@@ -24,7 +24,7 @@ export const GoogleAccountAuthen = async (data: string) => {
         return null
     }
 }
-export const LoginAccount = async (data: LoginProps):Promise<AccountProps|null> => {
+export const LoginAccount = async (data: LoginProps):Promise<AccountProps[]|null> => {
     const props = {
         data: null,
         url: accountUrl+`?email=${data.email}&password=${data.password}`,
@@ -41,7 +41,7 @@ export const LoginAccount = async (data: LoginProps):Promise<AccountProps|null> 
     }
 
 }
-export const LoginAccountWithGoogle = async (email: string):Promise<AccountProps|null> => {
+export const LoginAccountWithGoogle = async (email: string):Promise<AccountProps[]|null> => {
     const props = {
         data: null,
         url: accountUrl+`?email=${email}`,
